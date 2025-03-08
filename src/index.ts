@@ -16,10 +16,10 @@ async function start() {
         if (msg?.key?.fromMe) return;
 
         const data = await loads(msg);
-        //console.log(data)
+        console.log(data)
 
         const { isCommand, command, from, isGroup, isWoner, pushName } = data;
-        
+
         if (ANTI_GROUP_ON && isGroup) return;
         if (ANTI_PV_ON && !isGroup) return;
 
@@ -30,8 +30,7 @@ async function start() {
         const isVideo = messageType === 'videoMessage';
         const isSticker = messageType === 'stickerMessage';
 
-        let filepath, outputfile;
-
+        let filepath, arg;
         if (isCommand) {
 
             await bot.readMessages([key]);
@@ -41,12 +40,14 @@ async function start() {
                 case 'ping':
                     MDEVBOT.sendTextMessage('pong!!')
                     break;
+
                 case 'menu': case 'start':
                     MDEVBOT.sendImage({
                         filename: 'menu.jpg',
                         caption: menu(pushName)
                     });
                     break
+
                 case 'f': case 's': case 'figu': case 'sticker': case 'figurinha':
                     if (!isImage) return MDEVBOT.sendTextMessage('A mensagem enviada precisa ser uma imagem.\n\n> *(OBS):* Envie o comando na legenda da imagem');
 
@@ -54,12 +55,25 @@ async function start() {
 
                     if (!filepath) return MDEVBOT.sendTextMessage('Obtive um erro ao receber a imagem. Tente novamente mais tarde.');
 
-                    MDEVBOT.sendTextMessage('Aguarde, enquanto faço sua figurinha...')
-                    outputfile = String(await transformerMediaToWebp(idMessage, filepath));
-                    MDEVBOT.sendSticker(outputfile);
+                    let output = '';
+                    try {
+                        const [stickerFileFormated, outputFilename, filepaths] = await transformerMediaToWebp(idMessage, filepath);
 
-                    deleteFile(filepath);
-                    deleteFile(outputfile);
+                        output = outputFilename
+                        await MDEVBOT.sendTextMessage('⌛ Aguarde, enquanto faço sua figurinha...');
+                        await MDEVBOT.sendSticker(stickerFileFormated);
+
+                        if (filepaths) deleteFile(filepaths);
+                        if (outputFilename) deleteFile(outputFilename);
+                        if (stickerFileFormated) deleteFile(stickerFileFormated);
+
+                    } catch (error) {
+                        console.error("Erro ao criar a figurinha:", error);
+                        MDEVBOT.sendTextMessage('Houve um erro ao processar sua figurinha. Tente novamente mais tarde.');
+
+                        if (filepath) deleteFile(filepath);
+                        if (output) deleteFile(output);
+                    }
 
                     break;
                 default:

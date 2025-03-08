@@ -33,9 +33,9 @@ class BotFuncs {
             yield this.bot.sendMessage(this.from, { image: fs_1.default.readFileSync(`${filepath}`), caption: caption, viewOnce: viewOnce }, reply ? { quoted: this.msg } : {});
         });
     }
-    sendSticker(outputfile) {
-        return __awaiter(this, void 0, void 0, function* () {
-            yield this.bot.sendMessage(this.from, { sticker: fs_1.default.readFileSync(`${outputfile}`) });
+    sendSticker(outputfile_1) {
+        return __awaiter(this, arguments, void 0, function* (outputfile, reply = true) {
+            yield this.bot.sendMessage(this.from, { sticker: fs_1.default.readFileSync(`${outputfile}`) }, reply ? { quoted: this.msg } : {});
         });
     }
 }

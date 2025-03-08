@@ -30,7 +30,7 @@ function start() {
             if ((_b = msg === null || msg === void 0 ? void 0 : msg.key) === null || _b === void 0 ? void 0 : _b.fromMe)
                 return;
             const data = yield (0, loads_1.default)(msg);
-            //console.log(data)
+            console.log(data);
             const { isCommand, command, from, isGroup, isWoner, pushName } = data;
             if (config_1.ANTI_GROUP_ON && isGroup)
                 return;
@@ -41,7 +41,7 @@ function start() {
             const isImage = messageType === 'imageMessage';
             const isVideo = messageType === 'videoMessage';
             const isSticker = messageType === 'stickerMessage';
-            let filepath, outputfile;
+            let filepath, arg;
             if (isCommand) {
                 yield bot.readMessages([key]);
                 const MDEVBOT = new bot_funcs_1.default(msg, from, bot);
@@ -66,11 +66,27 @@ function start() {
                         filepath = yield (0, downloader_1.default)(msg);
                         if (!filepath)
                             return MDEVBOT.sendTextMessage('Obtive um erro ao receber a imagem. Tente novamente mais tarde.');
-                        MDEVBOT.sendTextMessage('Aguarde, enquanto faço sua figurinha...');
-                        outputfile = String(yield (0, execs_terminal_1.transformerMediaToWebp)(idMessage, filepath));
-                        MDEVBOT.sendSticker(outputfile);
-                        (0, functions_1.deleteFile)(filepath);
-                        (0, functions_1.deleteFile)(outputfile);
+                        let output = '';
+                        try {
+                            const [stickerFileFormated, outputFilename, filepaths] = yield (0, execs_terminal_1.transformerMediaToWebp)(idMessage, filepath);
+                            output = outputFilename;
+                            yield MDEVBOT.sendTextMessage('⌛ Aguarde, enquanto faço sua figurinha...');
+                            yield MDEVBOT.sendSticker(stickerFileFormated);
+                            if (filepaths)
+                                (0, functions_1.deleteFile)(filepaths);
+                            if (outputFilename)
+                                (0, functions_1.deleteFile)(outputFilename);
+                            if (stickerFileFormated)
+                                (0, functions_1.deleteFile)(stickerFileFormated);
+                        }
+                        catch (error) {
+                            console.error("Erro ao criar a figurinha:", error);
+                            MDEVBOT.sendTextMessage('Houve um erro ao processar sua figurinha. Tente novamente mais tarde.');
+                            if (filepath)
+                                (0, functions_1.deleteFile)(filepath);
+                            if (output)
+                                (0, functions_1.deleteFile)(output);
+                        }
                         break;
                     default:
                         yield bot.sendMessage(from, { text: 'Este comando não existe.' });

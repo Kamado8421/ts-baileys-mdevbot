@@ -1,7 +1,7 @@
 import path from 'path';
 
 // variáveis de configuração
-export const PREFIX = "mdev-";
+export const PREFIX = "/";
 export const BOT_NAME = "MDEV'BOT";
 export const ICON_BOT_NAME = "©";
 export const WONER_NAME = "M'Dev Systems";
@@ -15,6 +15,6 @@ export const TEMP_FOLDER_PATH = path.resolve(__dirname, '..', '..', 'assets', 't
 export const IMAGES_FOLDER_PATH = path.resolve(__dirname, '..', '..', 'assets', 'images');
 
 // anti condições
-export const ANTI_GROUP_ON = false; // se for grupo, o bot não responde
+export const ANTI_GROUP_ON = true; // se for grupo, o bot não responde
 export const ANTI_PV_ON = false; // se for privado, o bot não responde
 

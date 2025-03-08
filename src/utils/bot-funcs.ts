@@ -28,7 +28,7 @@ export default class BotFuncs {
         await this.bot.sendMessage(this.from, { image: fs.readFileSync(`${filepath}`), caption: caption, viewOnce: viewOnce }, reply ? {quoted: this.msg} : {});
     }
 
-    async sendSticker(outputfile: string) {
-        await this.bot.sendMessage(this.from, { sticker: fs.readFileSync(`${outputfile}`) });
+    async sendSticker(outputfile: string, reply: boolean = true) {
+        await this.bot.sendMessage(this.from, { sticker: fs.readFileSync(`${outputfile}`) }, reply ? {quoted: this.msg} : {});
     }
 }

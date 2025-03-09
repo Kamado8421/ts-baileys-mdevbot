@@ -2,6 +2,33 @@
 
 Utizando API Baileys[](https://)
 
+## Clone agora o repositório:
+Instale o git na sua máquina (é necessário ter o nodejs e typescript instalados e configurados para executar o script posteriormente):
+
+**Termux:**
+```bash
+apt update -y && apt upgrade -y
+```
+```bash
+pkg install git -y
+```
+Verifique a instalação:
+```bash
+git --version
+```
+Se tudo ocorreu bem, o termux/terminal existirá a versão do `git`
+Clone o repositório do bot, mas antes, navegue até uma pasta segura.
+**Termux:**
+```bash
+cd /sdcard # entrar nos seus arquivos
+```
+```bash
+git clone https://github.com/Kamado8421/ts-baileys-mdevbot.git && ls
+```
+verifique a instalação: se aparecer o nome `ts-baileys-mdevbot` na listagem de diretórios correu tudo bem. Entre no diretório clonado e exiba o conteúdo:
+```bash
+clear && cd ts-baileys-mdevbot && ls
+```
 ### Instalar dependências:
 
 ````bash
@@ -25,8 +52,8 @@ export const WONER_NAME = "M'Dev Systems"; // seu nome de dono
 export const PHONE_NUMBER_OWNER = "550012345678"; // sem esse campo o bot não saberá que é o dono que está mandando msg
 
 // ativadores
-export const NOTIFY_BOT_ONLINE = true; // avisa ao dono quando o bot for inicado.
-export const GENERATE_QRCODE_TERMINAL = true; // gera o qrcode de conexão no terminal
+export const NOTIFY_BOT_ONLINE = true; // avisa ao dono quando o bot for iniciado.
+export const GENERATE_QRCODE_TERMINAL = false; // gera o qrcode de conexão no terminal se você preferir (recomendo deixar false se você estiver no dispositivo móvel)
 
 export const TEMP_FOLDER_PATH = path.resolve(__dirname, '..', '..', 'assets', 'temp');
 export const IMAGES_FOLDER_PATH = path.resolve(__dirname, '..', '..', 'assets', 'images');

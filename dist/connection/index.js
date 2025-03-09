@@ -47,7 +47,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Connect = Connect;
 const baileys_1 = __importStar(require("@whiskeysockets/baileys"));
-const path_1 = __importDefault(require("path"));
 const pino_1 = __importDefault(require("pino"));
 const cfonts_1 = __importDefault(require("cfonts"));
 const config_1 = require("../data/config");
@@ -56,8 +55,7 @@ function Connect() {
     return __awaiter(this, void 0, void 0, function* () {
         console.clear();
         console.log("\x1b[1;33;42m Iniciando Conexão do M'Dev-Bot \x1b[m");
-        const pathConnectionSave = path_1.default.resolve(__dirname, "..", "..", "assets", "qrcode");
-        const { state, saveCreds } = yield (0, baileys_1.useMultiFileAuthState)(pathConnectionSave);
+        const { state, saveCreds } = yield (0, baileys_1.useMultiFileAuthState)(config_1.CONNECTION_SAVE_PATH);
         const { version } = yield (0, baileys_1.fetchLatestBaileysVersion)();
         const bot = (0, baileys_1.default)({
             printQRInTerminal: config_1.GENERATE_QRCODE_TERMINAL || false,

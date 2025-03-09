@@ -13,6 +13,7 @@ export const GENERATE_QRCODE_TERMINAL = true; // gera o qrcode de conexão no te
 
 export const TEMP_FOLDER_PATH = path.resolve(__dirname, '..', '..', 'assets', 'temp');
 export const IMAGES_FOLDER_PATH = path.resolve(__dirname, '..', '..', 'assets', 'images');
+export const CONNECTION_SAVE_PATH = path.resolve(__dirname, "..", "..", "assets", "qrcode");
 
 // anti condições
 export const ANTI_GROUP_ON = true; // se for grupo, o bot não responde

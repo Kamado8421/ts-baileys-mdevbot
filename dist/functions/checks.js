@@ -1,6 +1,10 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.checkIsWoner = exports.checkIsGroup = exports.checkIsCommand = void 0;
+exports.checksDependenciesDirs = exports.checkIsWoner = exports.checkIsGroup = exports.checkIsCommand = void 0;
+const fs_1 = __importDefault(require("fs"));
 const config_1 = require("../data/config");
 const jids_funcs_1 = require("./jids-funcs");
 const checkIsCommand = (message) => {
@@ -17,3 +21,16 @@ const checkIsWoner = (jid) => {
     return wonerJid === jid;
 };
 exports.checkIsWoner = checkIsWoner;
+const checksDependenciesDirs = () => {
+    const hasTempFolder = fs_1.default.existsSync(config_1.TEMP_FOLDER_PATH);
+    const hasConnectionFolder = fs_1.default.existsSync(config_1.CONNECTION_SAVE_PATH);
+    if (!hasTempFolder) {
+        fs_1.default.mkdirSync(config_1.TEMP_FOLDER_PATH);
+        console.log('   > TEMP-FOLDER criado em ' + config_1.TEMP_FOLDER_PATH);
+    }
+    if (!hasConnectionFolder) {
+        fs_1.default.mkdirSync(config_1.CONNECTION_SAVE_PATH);
+        console.log('   > CONNECT SAVE FOLDER criado em ' + config_1.CONNECTION_SAVE_PATH);
+    }
+};
+exports.checksDependenciesDirs = checksDependenciesDirs;

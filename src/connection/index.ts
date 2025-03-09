@@ -5,11 +5,10 @@ import makeWASocket, {
 } from "@whiskeysockets/baileys";
 import { Boom } from "@hapi/boom";
 
-import path from "path";
 import pino from 'pino';
 import CFonts from 'cfonts';
 
-import { GENERATE_QRCODE_TERMINAL, NOTIFY_BOT_ONLINE, PHONE_NUMBER_OWNER } from "../data/config";
+import { CONNECTION_SAVE_PATH, GENERATE_QRCODE_TERMINAL, NOTIFY_BOT_ONLINE, PHONE_NUMBER_OWNER } from "../data/config";
 import { InputText } from "./input";
 import { generateUserJid } from "../functions/jids-funcs";
 
@@ -18,8 +17,7 @@ export async function Connect() {
     console.clear();
     console.log("\x1b[1;33;42m Iniciando Conexão do M'Dev-Bot \x1b[m")
 
-    const pathConnectionSave = path.resolve(__dirname, "..", "..", "assets", "qrcode");
-    const { state, saveCreds } = await useMultiFileAuthState(pathConnectionSave);
+    const { state, saveCreds } = await useMultiFileAuthState(CONNECTION_SAVE_PATH);
 
     const { version } = await fetchLatestBaileysVersion();
 

@@ -43,7 +43,9 @@ export const ANTI_PV_ON = false; // se for privado, o bot não responde
 Compilar & Executar
 
 ```bash
-npm run build
+npm run build 
+```
+```bash
 npm start
 ```
 

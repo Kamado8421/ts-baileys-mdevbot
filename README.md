@@ -49,10 +49,18 @@ npm start
 
 Executar somente o nodejs
 
-````bas
+````bash
 node dist/index.js
 ````
 
 ## Diretórios
 
 Certifique-se de que o diretório`assets/` possui as psatas `assets/temp`, `assets/images` e `assets/qrcode`. Caso não haja, crie-os
+
+## Baixe no Termux o ffmpeg
+```bash
+pkg install ffmpeg -y
+```
+Obs: caso esteja no windows, verifique na web como baixar e instalar o ffmpeg 
+
+
